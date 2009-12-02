@@ -64,7 +64,6 @@ var SiteTraverser = (function(){
             },
             
             applyCSS: function(el, styles) {
-                /* Applies CSS to a single element */
                 for (var prop in styles) {
                     if (styles.hasOwnProperty(prop)) {
                         try{
@@ -76,12 +75,11 @@ var SiteTraverser = (function(){
             },
             
             txt: function(t) {
-                /* Create text node */
                 return document.createTextNode(t);
             },
             
             htmlentities: function(str) {
-                return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                return str.replace(/&(?!\S)/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
             },
             
             merge: function(target, source) {
