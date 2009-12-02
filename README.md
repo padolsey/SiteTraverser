@@ -10,7 +10,7 @@ First, a preview:
 Preview:
 ---
 
-![prettyPrint.js preview](http://img171.imageshack.us/img171/1593/scr1259769806.png)
+![sitetraverser.js preview](http://img31.imageshack.us/img31/5977/scr1259772831.png)
 
 Features:
 ---
@@ -142,7 +142,7 @@ That's about it! There are some other things you can do, so feel free to explore
 An example:
 ---
 
-Counting the number of elements on 10 pages within your site:
+Counting the number of elements on pages within your site:
 
     new SiteTraverser({
         limit: 10, 

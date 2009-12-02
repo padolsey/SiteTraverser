@@ -591,14 +591,13 @@ var SiteTraverser = (function(){
     };
     
     SiteTraverser.prototype.next = function() {
-        console.log(this.count, this.limit);
+        
         if ( !this.urls.length || this.paused || this.count >= this.limit ) { return this; }
         
         this.current_url = this.urls.shift();
         
         try{
             if ( this.done[this.current_url] ) {
-                console.log('Calling next()');
                 this.next();
             } else {
                 this.done[this.current_url] = true;
@@ -606,7 +605,7 @@ var SiteTraverser = (function(){
                 this.process( this.current_url );
             }
         } catch(e) {
-            window.console && console.error && console.error(e);
+            // window.console && console.error && console.error(e);
             this.genericError.call(this, e);
         }
         
