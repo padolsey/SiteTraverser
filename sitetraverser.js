@@ -7,7 +7,7 @@
  * @updated 01-DEC-09
  * ---
  * @namespace window.SiteTraverser
- * @usage new SiteTraverser({ check:function(){...} })
+ * @info http://github.com/jamespadolsey/SiteTraverser
  */
 
 var SiteTraverser = (function(){
