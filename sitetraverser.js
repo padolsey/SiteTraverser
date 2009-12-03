@@ -257,7 +257,7 @@ var SiteTraverser = (function(){
                 id: o.id || '',
                 className: o.className || '',
                 style: util.merge({
-                    cursor:'url("' + o.cursor.open + '")'
+                    cursor: 'url("' + o.cursor.open + '"), default'
                 },o.style)
             });
             
@@ -327,7 +327,7 @@ var SiteTraverser = (function(){
             
             util.addEvent(this.view, 'mousedown', function(e){
                 if ( !eventFiredWithin(e,self.preWrapper) ) {
-                    self.setCSS({cursor: 'url("' + o.cursor.closed + '")'});
+                    self.setCSS({cursor: 'url("' + o.cursor.closed + '"), default'});
                     mY = e.clientY - self.view.offsetTop;
                     mX = e.clientX - self.view.offsetLeft;
                     mouseDown = true;
@@ -337,7 +337,7 @@ var SiteTraverser = (function(){
             
             util.addEvent(document, 'mouseup', function(e){
                 self.setCSS({
-                    cursor: mouseDown ? ('url("' + o.cursor.open + '")') : ''
+                    cursor: mouseDown ? ('url("' + o.cursor.open + '"), default') : ''
                 });
                 mouseDown = false;
             });
