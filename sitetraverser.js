@@ -231,6 +231,16 @@ var SiteTraverser = (function(){
         
         var persister = {};
         
+        function eventFiredWithin(event, node) {
+            var target = event.target || event.srcElement;
+            if (target) do {
+                if ( node === target ) {
+                    return true;
+                }
+            } while ( target = target.parentNode );
+            return false;
+        }
+        
         function Logger(o) {
             
             if ( !(this instanceof Logger) ) {
@@ -241,17 +251,18 @@ var SiteTraverser = (function(){
             
             var self = this,
                 mouseDown,
-                mX, mY,
-                movable;
+                mX, mY;
             
             this.view = util.el('div', {
                 id: o.id || '',
                 className: o.className || '',
-                style: o.style
+                style: util.merge({
+                    cursor:'url("' + o.cursor.open + '")'
+                },o.style)
             });
             
             this.view.appendChild(util.el('span', {
-                innerHTML: '(CTRL-mousedown to drag)',
+                innerHTML: '(DRAGGABLE)',
                 style: {
                     textTransform: 'uppercase',
                     color: '#CCC',
@@ -284,7 +295,8 @@ var SiteTraverser = (function(){
                 'div',
                 {style:{
                     overflow: 'auto',
-                    height: '300px'
+                    height: '300px',
+                    cursor:'default'
                 }}
             ));
             
@@ -304,31 +316,18 @@ var SiteTraverser = (function(){
             
             document.body.appendChild(this.view);
             
-            util.addEvent(document, 'keydown', function(e) {
-                if (e.keyCode === 17 && !movable) {
-                    self.setCSS({cursor: 'url("' + o.cursor.open + '"), pointer'});
-                    movable = true;
-                }
-            });
-            
-            util.addEvent(document, 'keyup', function(e) {
-                if (e.keyCode === 17) {
-                    self.setCSS({cursor:''});
-                    movable = false;
-                }
-            });
-            
             util.addEvent(document, 'mousemove', function(e){
                 var x = e.clientX, y = e.clientY;
                 if (mouseDown) {
                     self.view.style.top = y - mY + 'px';
                     self.view.style.left = x - mX + 'px';
+                    return false;
                 }
             });
             
             util.addEvent(this.view, 'mousedown', function(e){
-                if ( movable ) {
-                    self.setCSS({cursor: 'url("' + o.cursor.closed + '"), pointer'});
+                if ( !eventFiredWithin(e,self.preWrapper) ) {
+                    self.setCSS({cursor: 'url("' + o.cursor.closed + '")'});
                     mY = e.clientY - self.view.offsetTop;
                     mX = e.clientX - self.view.offsetLeft;
                     mouseDown = true;
@@ -338,7 +337,7 @@ var SiteTraverser = (function(){
             
             util.addEvent(document, 'mouseup', function(e){
                 self.setCSS({
-                    cursor: movable ? ('url("' + o.cursor.open + '"), pointer') : ''
+                    cursor: mouseDown ? ('url("' + o.cursor.open + '")') : ''
                 });
                 mouseDown = false;
             });

@@ -22,7 +22,9 @@ Features:
 Usage:
 ---
 
-Download sitetraverser.js. You can include it in your document and use it like that, or, to include in a bookmarklet or GreaseMonkey script you'll want to load it dynamically like so:
+Download sitetraverser.js.
+
+You can include it in your document and use it like that, or, to include in a bookmarklet or GreaseMonkey script you'll want to load it dynamically like so:
 
     var loc = 'http://localhost/projects/SiteTraverser/sitetraverser.js',
         s = document.createElement('script'),
